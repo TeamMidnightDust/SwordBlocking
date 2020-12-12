@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "swordblocking",
+  "version": "${version}",
+
+  "name": "Sword Blocking",
+  "description": "Adds sword blocking back to 1.16, you just need a shield in your offhand!",
+  "authors": [
+    "Motschen",
+    "TeamMidnightDust"
+  ],
+  "contact": {
+    "homepage": "https://www.midnightdust.eu/",
+    "sources": "https://github.com/TeamMidnightDust/SwordBlocking",
+    "issues": "https://github.com/TeamMidnightDust/SwordBlocking/issues"
+  },
+
+  "license": "MIT",
+  "icon": "assets/swordblocking/icon.png",
+
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "eu.midnightdust.swordblocking.SwordBlockingClient"
+    ]
+  },
+
+  "mixins": [
+    "swordblocking.mixins.json"
+  ],
+
+  "depends": {
+    "fabric": "*"
+  }
+}
