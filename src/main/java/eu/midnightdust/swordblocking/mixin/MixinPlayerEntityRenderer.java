@@ -1,5 +1,7 @@
 package eu.midnightdust.swordblocking.mixin;
 
+import eu.midnightdust.swordblocking.SwordBlockingClient;
+import eu.midnightdust.swordblocking.config.SwordBlockingConfig;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -15,17 +17,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntityRenderer.class)
 public abstract class MixinPlayerEntityRenderer {
-
-    @Inject(at = @At("HEAD"), method = "getArmPose", cancellable = true)
+    @Inject(at = @At(value = "RETURN"), method = "getArmPose", cancellable = true)
     @Environment(EnvType.CLIENT)
-    private static void getArmPose(AbstractClientPlayerEntity abstractClientPlayerEntity, Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir) {
-        ItemStack itemStack = abstractClientPlayerEntity.getStackInHand(hand);
-        ItemStack itemStack2 = abstractClientPlayerEntity.getOffHandStack();
+    private static void swordblocking$getArmPose(AbstractClientPlayerEntity abstractClientPlayerEntity, Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir) {
+        if (!SwordBlockingConfig.enabled) return;
+        ItemStack handStack = abstractClientPlayerEntity.getStackInHand(hand);
+        ItemStack offStack = abstractClientPlayerEntity.getStackInHand(hand.equals(Hand.MAIN_HAND) ? Hand.OFF_HAND : Hand.MAIN_HAND);
+        if (!SwordBlockingConfig.alwaysHideShield && (handStack.getItem() instanceof ShieldItem) && !SwordBlockingClient.canWeaponBlock(abstractClientPlayerEntity)) return;
 
-        if (itemStack2.getItem() instanceof ShieldItem && abstractClientPlayerEntity.isUsingItem()) {
+        if (offStack.getItem() instanceof ShieldItem && abstractClientPlayerEntity.isUsingItem()) {
             cir.setReturnValue(BipedEntityModel.ArmPose.BLOCK);
         }
-        if (itemStack.getItem() instanceof ShieldItem) {
+        else if (handStack.getItem() instanceof ShieldItem && SwordBlockingConfig.hideShield) {
             cir.setReturnValue(BipedEntityModel.ArmPose.EMPTY);
         }
     }

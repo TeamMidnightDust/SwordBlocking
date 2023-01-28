@@ -1,0 +1,15 @@
+{
+	"parent": "minecraft:item/handheld",
+	"textures": {
+		"layer0": "minecraft:item/stone_axe"
+	},
+	
+	"overrides": [
+        {
+            "predicate": {
+                "blocking": 1
+            },
+            "model": "minecraft:item/stone_axe_blocking"
+        }
+    ]
+}

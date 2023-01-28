@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "Sword Blocking",
-  "description": "Adds sword blocking back to 1.16, you just need a shield in your offhand!",
+  "description": "Adds sword blocking to new versions, you just need a shield in your offhand!",
   "authors": [
     "Motschen",
     "TeamMidnightDust"
@@ -30,6 +30,7 @@
   ],
 
   "depends": {
-    "fabric": "*"
+    "fabric": "*",
+    "midnightlib": "*"
   }
 }

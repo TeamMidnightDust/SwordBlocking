@@ -1,0 +1,8 @@
+{
+  "swordblocking.midnightconfig.title": "Sword Blocking Config",
+  "swordblocking.midnightconfig.enabled": "Enabled",
+  "swordblocking.midnightconfig.hideShield": "Hide Shield",
+  "swordblocking.midnightconfig.alwaysHideShield": "Always Hide Shield",
+  "swordblocking.midnightconfig.hideOffhandSlot": "Hide Offhand Slot",
+  "swordblocking.midnightconfig.hideOffhandSlot.tooltip": "Hides the offhand slot when a shield is in the offhand."
+}
