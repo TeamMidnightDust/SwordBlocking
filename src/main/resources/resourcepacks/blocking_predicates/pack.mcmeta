@@ -1,6 +1,6 @@
 {
   "pack": {
-    "pack_format": 12,
+    "pack_format": 13,
     "description": "§2Provides the required predicates for Sword Blocking"
   }
 }

@@ -31,6 +31,7 @@
 
   "depends": {
     "fabric": "*",
-    "midnightlib": "*"
+    "midnightlib": "*",
+    "minecraft": "1.19.4"
   }
 }
