@@ -30,7 +30,11 @@
   ],
 
   "depends": {
+<<<<<<< HEAD
     "fabric": "*",
+=======
+    "fabric-api": "*",
+>>>>>>> 989c3ce (SwordBlocking 1.2.1 - 1.19.4, Update to 1.19.4)
     "midnightlib": "*",
     "minecraft": "1.19.4"
   }
