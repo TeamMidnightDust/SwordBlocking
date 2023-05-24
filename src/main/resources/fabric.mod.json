@@ -30,7 +30,7 @@
   ],
 
   "depends": {
-    "fabric": "*",
+    "fabric-api": "*",
     "midnightlib": "*"
   }
 }
