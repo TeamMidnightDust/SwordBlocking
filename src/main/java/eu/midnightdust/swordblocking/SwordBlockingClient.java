@@ -12,24 +12,26 @@ import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 
 public class SwordBlockingClient implements ClientModInitializer {
-
     @Override
     public void onInitializeClient() {
         SwordBlockingConfig.init("swordblocking", SwordBlockingConfig.class);
+
         for (Item item : Registries.ITEM) {
-            if (item instanceof SwordItem || item instanceof AxeItem) {
-                ModelPredicateProviderRegistry.register(item, new Identifier("blocking"),
-                        (stack, world, entity, seed) ->
-                                entity != null && isWeaponBlocking(entity) ? 1.0F : 0.0F);
-            }
+            if (!(item instanceof SwordItem || item instanceof AxeItem))
+                continue;
+            ModelPredicateProviderRegistry.register(item, new Identifier("blocking"),
+                    (stack, world, entity, seed) -> entity != null && isWeaponBlocking(entity) ? 1.0F : 0.0F);
         }
+
         FabricLoader.getInstance().getModContainer("swordblocking").ifPresent(modContainer -> {
             ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("swordblocking", "blocking_predicates"), modContainer, ResourcePackActivationType.ALWAYS_ENABLED);
         });
     }
+
     public static boolean isWeaponBlocking(LivingEntity entity) {
         return (entity.isUsingItem() && canWeaponBlock(entity));
     }
+
     public static boolean canWeaponBlock(LivingEntity entity) {
         return (SwordBlockingConfig.enabled && (entity.getMainHandStack().getItem() instanceof SwordItem || entity.getMainHandStack().getItem() instanceof AxeItem) &&
                 entity.getOffHandStack().getItem() instanceof ShieldItem) ||

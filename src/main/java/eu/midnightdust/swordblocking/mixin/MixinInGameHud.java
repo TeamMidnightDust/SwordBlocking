@@ -14,7 +14,6 @@ public abstract class MixinInGameHud {
     @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;getOffHandStack()Lnet/minecraft/item/ItemStack;"), method = "renderHotbar")
     public ItemStack swordblocking$hideOffHandSlot(PlayerEntity player) {
         ItemStack realStack = player.getOffHandStack();
-        if (SwordBlockingConfig.enabled && SwordBlockingConfig.hideOffhandSlot && realStack.getItem() instanceof ShieldItem) return ItemStack.EMPTY;
-        else return realStack;
+        return (SwordBlockingConfig.enabled && SwordBlockingConfig.hideOffhandSlot && realStack.getItem() instanceof ShieldItem) ? ItemStack.EMPTY : realStack;
     }
 }
