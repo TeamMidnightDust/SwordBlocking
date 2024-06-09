@@ -82,7 +82,7 @@ unifiedPublishing {
         gameLoaders = ["fabric","quilt"]
         mainPublication remapJar
         relations {
-            depends {
+            includes {
                 curseforge = "midnightlib"
                 modrinth = "midnightlib"
             }
