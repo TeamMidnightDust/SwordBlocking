@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MixinHeldItemRenderer {
     @Inject(at = @At("HEAD"), cancellable = true, method = "renderItem(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V")
     public void swordblocking$hideShield(LivingEntity entity, ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
-        if (SwordBlockingConfig.alwaysHideShield && SwordBlockingConfig.hideShield && stack.getItem() instanceof ShieldItem) ci.cancel();
-        else if (SwordBlockingConfig.hideShield && stack.getItem() instanceof ShieldItem && SwordBlockingClient.canWeaponBlock(entity)) ci.cancel();
+        if ((SwordBlockingConfig.alwaysHideShield && SwordBlockingConfig.hideShield && stack.getItem() instanceof ShieldItem) || (SwordBlockingConfig.hideShield && stack.getItem() instanceof ShieldItem && SwordBlockingClient.canWeaponBlock(entity)))
+            ci.cancel();
     }
 }

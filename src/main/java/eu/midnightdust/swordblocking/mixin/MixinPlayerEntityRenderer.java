@@ -21,14 +21,15 @@ public abstract class MixinPlayerEntityRenderer {
     @Environment(EnvType.CLIENT)
     private static void swordblocking$getArmPose(AbstractClientPlayerEntity abstractClientPlayerEntity, Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir) {
         if (!SwordBlockingConfig.enabled) return;
+
         ItemStack handStack = abstractClientPlayerEntity.getStackInHand(hand);
         ItemStack offStack = abstractClientPlayerEntity.getStackInHand(hand.equals(Hand.MAIN_HAND) ? Hand.OFF_HAND : Hand.MAIN_HAND);
-        if (!SwordBlockingConfig.alwaysHideShield && (handStack.getItem() instanceof ShieldItem) && !SwordBlockingClient.canWeaponBlock(abstractClientPlayerEntity)) return;
+        if (!SwordBlockingConfig.alwaysHideShield && (handStack.getItem() instanceof ShieldItem) && !SwordBlockingClient.canWeaponBlock(abstractClientPlayerEntity))
+            return;
 
         if (offStack.getItem() instanceof ShieldItem && abstractClientPlayerEntity.isUsingItem()) {
             cir.setReturnValue(BipedEntityModel.ArmPose.BLOCK);
-        }
-        else if (handStack.getItem() instanceof ShieldItem && SwordBlockingConfig.hideShield) {
+        } else if (handStack.getItem() instanceof ShieldItem && SwordBlockingConfig.hideShield) {
             cir.setReturnValue(BipedEntityModel.ArmPose.EMPTY);
         }
     }
