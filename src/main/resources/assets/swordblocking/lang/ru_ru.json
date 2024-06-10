@@ -1,0 +1,8 @@
+{
+  "swordblocking.midnightconfig.title": "Конфигурация Sword Blocking",
+  "swordblocking.midnightconfig.enabled": "Включено",
+  "swordblocking.midnightconfig.hideShield": "Спрятать щит",
+  "swordblocking.midnightconfig.alwaysHideShield": "Всегда прятать щит",
+  "swordblocking.midnightconfig.hideOffhandSlot": "Скрывать слот второй руки",
+  "swordblocking.midnightconfig.hideOffhandSlot.tooltip": "Скрывает слот второй руки, если в ней находится щит."
+}
