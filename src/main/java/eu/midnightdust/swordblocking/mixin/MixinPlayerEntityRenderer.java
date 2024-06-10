@@ -19,17 +19,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MixinPlayerEntityRenderer {
     @Inject(at = @At(value = "RETURN"), method = "getArmPose", cancellable = true)
     @Environment(EnvType.CLIENT)
-    private static void swordblocking$getArmPose(AbstractClientPlayerEntity abstractClientPlayerEntity, Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir) {
+    private static void swordblocking$getArmPose(AbstractClientPlayerEntity player, Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir) {
         if (!SwordBlockingConfig.enabled) return;
 
-        ItemStack handStack = abstractClientPlayerEntity.getStackInHand(hand);
-        ItemStack offStack = abstractClientPlayerEntity.getStackInHand(hand.equals(Hand.MAIN_HAND) ? Hand.OFF_HAND : Hand.MAIN_HAND);
-        if (!SwordBlockingConfig.alwaysHideShield && (handStack.getItem() instanceof ShieldItem) && !SwordBlockingClient.canWeaponBlock(abstractClientPlayerEntity))
+        ItemStack handStack = player.getStackInHand(hand);
+        ItemStack offStack = player.getStackInHand(hand.equals(Hand.MAIN_HAND) ? Hand.OFF_HAND : Hand.MAIN_HAND);
+        if (!SwordBlockingConfig.alwaysHideShield && (handStack.getItem() instanceof ShieldItem) && !SwordBlockingClient.canWeaponBlock(player))
             return;
 
-        if (offStack.getItem() instanceof ShieldItem && abstractClientPlayerEntity.isUsingItem()) {
+        if (offStack.getItem() instanceof ShieldItem && SwordBlockingClient.isWeaponBlocking(player)) {
             cir.setReturnValue(BipedEntityModel.ArmPose.BLOCK);
-        } else if (handStack.getItem() instanceof ShieldItem && SwordBlockingConfig.hideShield) {
+        } else if (handStack.getItem() instanceof ShieldItem && SwordBlockingConfig.hideShield && (cir.getReturnValue() == BipedEntityModel.ArmPose.ITEM || cir.getReturnValue() == BipedEntityModel.ArmPose.BLOCK)) {
             cir.setReturnValue(BipedEntityModel.ArmPose.EMPTY);
         }
     }
