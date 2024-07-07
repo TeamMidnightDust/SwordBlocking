@@ -1,0 +1,38 @@
+modLoader = "javafml"
+loaderVersion = "[2,)"
+#issueTrackerURL = ""
+license = "MIT License"
+
+[[mods]]
+modId = "swordblocking"
+version = "${version}"
+displayName = "Sword Blocking"
+logoFile = "icon.png"
+authors = "Motschen, TeamMidnightDust, lowercasebtw"
+description = '''
+Adds sword blocking to new versions, you just need a shield in your offhand (or ViaVersion)!
+'''
+
+[[mixins]]
+config = "swordblocking.mixins.json"
+
+[[dependencies.visualoverhaul]]
+modId = "neoforge"
+mandatory = true
+versionRange = "[21.0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.visualoverhaul]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.21,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.visualoverhaul]]
+modId = "picturesign"
+mandatory = true
+versionRange = "[1.0,)"
+ordering = "AFTER"
+side = "BOTH"

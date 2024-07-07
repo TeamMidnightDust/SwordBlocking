@@ -1,7 +1,6 @@
 package eu.midnightdust.swordblocking;
 
 import eu.midnightdust.swordblocking.config.SwordBlockingConfig;
-import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.AxeItem;
@@ -12,10 +11,11 @@ import net.minecraft.item.SwordItem;
 
 import java.util.Objects;
 
-public class SwordBlockingClient implements ClientModInitializer {
-    @Override
-    public void onInitializeClient() {
-        SwordBlockingConfig.init("swordblocking", SwordBlockingConfig.class);
+public class SwordBlockingClient {
+    public static final String MOD_ID = "swordblocking";
+
+    public static void init() {
+        SwordBlockingConfig.init(MOD_ID, SwordBlockingConfig.class);
     }
 
     public static boolean isWeaponBlocking(LivingEntity entity) {
