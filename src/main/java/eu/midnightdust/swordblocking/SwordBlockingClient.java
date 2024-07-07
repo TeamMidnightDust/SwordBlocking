@@ -25,10 +25,11 @@ public class SwordBlockingClient implements ClientModInitializer {
     public static boolean canWeaponBlock(LivingEntity entity) {
         if (!SwordBlockingConfig.enabled)
             return false;
-        Item mainItem = entity.getMainHandStack().getItem();
-        Item offItem = entity.getOffHandStack().getItem();
-        return ((mainItem instanceof SwordItem || mainItem instanceof AxeItem || mainItem instanceof MaceItem) && offItem instanceof ShieldItem)
-                || ((offItem instanceof SwordItem || offItem instanceof AxeItem || offItem instanceof MaceItem) && mainItem instanceof ShieldItem);
+        if (entity.getOffHandStack().getItem() instanceof ShieldItem || entity.getMainHandStack().getItem() instanceof ShieldItem) {
+            Item mainItem = entity.getOffHandStack().getItem() instanceof ShieldItem ? entity.getMainHandStack().getItem() : entity.getOffHandStack().getItem();
+            return mainItem instanceof SwordItem || mainItem instanceof AxeItem || mainItem instanceof MaceItem;
+        }
+        return false;
     }
     public static boolean isBlockingOnViaVersion(LivingEntity entity) {
         Item item = entity.getMainHandStack().getItem() instanceof SwordItem ? entity.getMainHandStack().getItem() : entity.getOffHandStack().getItem();
