@@ -11,7 +11,11 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(InGameHud.class)
 public abstract class MixinInGameHud {
     @ModifyExpressionValue(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;getOffHandStack()Lnet/minecraft/item/ItemStack;"), method = "renderHotbarVanilla")
-    public ItemStack swordblocking$hideOffHandSlot(ItemStack original) {
-        return (SwordBlockingConfig.enabled && SwordBlockingConfig.hideOffhandSlot && original.getItem() instanceof ShieldItem) ? ItemStack.EMPTY : original;
+    public ItemStack swordBlocking$hideOffHandSlot(ItemStack original) {
+        if (SwordBlockingConfig.enabled && SwordBlockingConfig.hideOffhandSlot && original.getItem() instanceof ShieldItem) {
+            return ItemStack.EMPTY;
+        } else {
+            return original;
+        }
     }
 }
