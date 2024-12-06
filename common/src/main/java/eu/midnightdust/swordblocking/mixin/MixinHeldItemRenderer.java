@@ -34,7 +34,7 @@ public abstract class MixinHeldItemRenderer {
 
     @Inject(method = "renderItem(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V", at = @At("HEAD"), cancellable = true)
     public void swordBlocking$hideShield(LivingEntity entity, ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
-        if (SwordBlockingConfig.enabled && SwordBlockingClient.shouldHideShield(entity, stack)) {
+        if (SwordBlockingClient.shouldHideShield(entity, stack)) {
             ci.cancel();
         }
     }
@@ -42,7 +42,7 @@ public abstract class MixinHeldItemRenderer {
     @Redirect(method = "renderFirstPersonItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;getActiveHand()Lnet/minecraft/util/Hand;", ordinal = 1))
     private Hand swordBlocking$changeActiveHand(AbstractClientPlayerEntity player, @Local(name = "hand") Hand hand) {
         Hand activeHand = player.getActiveHand();
-        if (SwordBlockingConfig.enabled && SwordBlockingClient.isEntityBlocking(player)) {
+        if (SwordBlockingClient.isEntityBlocking(player)) {
             return swordBlocking$getBlockingHand(activeHand);
         } else {
             return activeHand;
@@ -52,7 +52,7 @@ public abstract class MixinHeldItemRenderer {
     @Redirect(method = "renderFirstPersonItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;getUseAction()Lnet/minecraft/item/consume/UseAction;"))
     private UseAction swordBlocking$changeItemAction(ItemStack stack, @Local(argsOnly = true) AbstractClientPlayerEntity player, @Local(name = "hand") Hand hand) {
         UseAction defaultUseAction = stack.getUseAction();
-        if (SwordBlockingConfig.enabled && SwordBlockingClient.isEntityBlocking(player)) {
+        if (SwordBlockingClient.isEntityBlocking(player)) {
             return swordBlocking$getBlockingHand(player.getActiveHand()) == hand ? UseAction.BLOCK : defaultUseAction;
         } else {
             return defaultUseAction;

@@ -24,7 +24,7 @@ public abstract class MixinBipedEntityModel<T extends BipedEntityRenderState> {
     @Inject(method = "setAngles(Lnet/minecraft/client/render/entity/state/BipedEntityRenderState;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/model/BipedEntityModel;animateArms(Lnet/minecraft/client/render/entity/state/BipedEntityRenderState;F)V", shift = At.Shift.BEFORE))
     private void swordBlocking$setBlockingAngles(T bipedEntityRenderState, CallbackInfo ci) {
         LivingEntity livingEntity = SwordBlockingClient.RENDER_STATE_TO_ENTITY_MAP.get(bipedEntityRenderState);
-        if (!SwordBlockingConfig.enabled || livingEntity == null || !SwordBlockingClient.isEntityBlocking(livingEntity))
+        if (livingEntity == null || !SwordBlockingClient.isEntityBlocking(livingEntity))
             return;
         if (livingEntity.getOffHandStack().getItem() instanceof ShieldItem)
             this.positionRightArm(bipedEntityRenderState, BipedEntityModel.ArmPose.BLOCK);

@@ -17,7 +17,7 @@ public class SwordBlockingClient {
     }
 
     public static boolean isEntityBlocking(LivingEntity entity) {
-        return entity.isUsingItem() && canShieldSwordBlock(entity);
+        return SwordBlockingConfig.enabled && entity.isUsingItem() && canShieldSwordBlock(entity);
     }
 
     public static boolean canShieldSwordBlock(LivingEntity entity) {
@@ -30,7 +30,7 @@ public class SwordBlockingClient {
     }
 
     public static boolean shouldHideShield(LivingEntity entity, ItemStack stack) {
-        return (SwordBlockingConfig.alwaysHideShield && SwordBlockingConfig.hideShield && stack.getItem() instanceof ShieldItem)
+        return SwordBlockingConfig.enabled && (SwordBlockingConfig.alwaysHideShield && SwordBlockingConfig.hideShield && stack.getItem() instanceof ShieldItem)
                 || (SwordBlockingConfig.hideShield && stack.getItem() instanceof ShieldItem && SwordBlockingClient.canShieldSwordBlock(entity));
     }
 }
