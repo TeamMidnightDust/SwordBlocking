@@ -1,37 +1,32 @@
 {
-  "schemaVersion": 1,
-  "id": "swordblocking",
-  "version": "${version}",
-
-  "name": "Sword Blocking",
-  "description": "Adds sword blocking to new versions, you just need a shield in your offhand (or ViaVersion)!",
-  "authors": [
-    "Motschen",
-    "TeamMidnightDust",
-    "lowercasebtw"
-  ],
-  "contact": {
-    "homepage": "https://www.midnightdust.eu/",
-    "sources": "https://github.com/TeamMidnightDust/SwordBlocking",
-    "issues": "https://github.com/TeamMidnightDust/SwordBlocking/issues"
-  },
-
-  "license": "MIT",
-  "icon": "assets/swordblocking/icon.png",
-
-  "environment": "client",
-  "entrypoints": {
-    "client": [
-      "eu.midnightdust.swordblocking.fabric.SwordBlockingClientFabric"
-    ]
-  },
-
-  "mixins": [
-    "swordblocking.mixins.json"
-  ],
-
-  "depends": {
-    "fabric-api": "*",
-    "midnightlib": "*"
-  }
+	"schemaVersion": 1,
+	"id": "swordblocking",
+	"version": "${version}",
+	"name": "Sword Blocking",
+	"description": "Adds sword blocking to new versions, you just need a shield in your offhand (or ViaVersion)!",
+	"authors": [
+		"Motschen",
+		"TeamMidnightDust",
+		"lowercasebtw"
+	],
+	"contact": {
+		"homepage": "https://www.midnightdust.eu/",
+		"sources": "https://github.com/TeamMidnightDust/SwordBlocking",
+		"issues": "https://github.com/TeamMidnightDust/SwordBlocking/issues"
+	},
+	"license": "MIT",
+	"icon": "assets/swordblocking/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"eu.midnightdust.swordblocking.fabric.SwordBlockingClientFabric"
+		]
+	},
+	"mixins": [
+		"swordblocking.mixins.json"
+	],
+	"depends": {
+		"fabric-api": "*",
+		"midnightlib": "*"
+	}
 }

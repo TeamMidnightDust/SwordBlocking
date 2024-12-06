@@ -4,5 +4,8 @@
   "swordblocking.midnightconfig.hideShield": "Спрятать щит",
   "swordblocking.midnightconfig.alwaysHideShield": "Всегда прятать щит",
   "swordblocking.midnightconfig.hideOffhandSlot": "Скрывать слот второй руки",
-  "swordblocking.midnightconfig.hideOffhandSlot.tooltip": "Скрывает слот второй руки, если в ней находится щит."
+  "swordblocking.midnightconfig.hideOffhandSlot.tooltip": "Скрывает слот второй руки, если в ней находится щит.",
+  "swordblocking.midnightconfig.disableUseEquipAnimation": "Удалять анимацию оснащения при блокировании.",
+  "swordblocking.midnightconfig.lockBlockingArmPosition": "Отключить движение руки при блокировании.",
+  "swordblocking.midnightconfig.blockHitAnimation": "Включить анимацию удара по блоку."
 }
