@@ -40,7 +40,7 @@ public abstract class MixinHeldItemRenderer {
     }
 
     @Redirect(method = "renderFirstPersonItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;getActiveHand()Lnet/minecraft/util/Hand;", ordinal = 1))
-    private Hand swordBlocking$changeActiveHand(AbstractClientPlayerEntity player, @Local(name = "hand") Hand hand) {
+    private Hand swordBlocking$changeActiveHand(AbstractClientPlayerEntity player) {
         Hand activeHand = player.getActiveHand();
         if (SwordBlockingClient.isEntityBlocking(player)) {
             return swordBlocking$getBlockingHand(activeHand);
@@ -50,7 +50,7 @@ public abstract class MixinHeldItemRenderer {
     }
 
     @Redirect(method = "renderFirstPersonItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;getUseAction()Lnet/minecraft/item/consume/UseAction;"))
-    private UseAction swordBlocking$changeItemAction(ItemStack stack, @Local(argsOnly = true) AbstractClientPlayerEntity player, @Local(name = "hand") Hand hand) {
+    private UseAction swordBlocking$changeItemAction(ItemStack stack, @Local(argsOnly = true) AbstractClientPlayerEntity player, @Local(argsOnly = true) Hand hand) {
         UseAction defaultUseAction = stack.getUseAction();
         if (SwordBlockingClient.isEntityBlocking(player)) {
             return swordBlocking$getBlockingHand(player.getActiveHand()) == hand ? UseAction.BLOCK : defaultUseAction;
