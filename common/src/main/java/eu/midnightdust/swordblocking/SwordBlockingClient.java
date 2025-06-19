@@ -2,6 +2,7 @@ package eu.midnightdust.swordblocking;
 
 import eu.midnightdust.swordblocking.config.SwordBlockingConfig;
 import net.minecraft.client.render.entity.state.BipedEntityRenderState;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;
 
@@ -23,7 +24,7 @@ public class SwordBlockingClient {
     public static boolean canShieldSwordBlock(LivingEntity entity) {
         if (SwordBlockingConfig.enabled && (entity.getOffHandStack().getItem() instanceof ShieldItem || entity.getMainHandStack().getItem() instanceof ShieldItem)) {
             Item weaponItem = entity.getOffHandStack().getItem() instanceof ShieldItem ? entity.getMainHandStack().getItem() : entity.getOffHandStack().getItem();
-            return weaponItem instanceof SwordItem || weaponItem instanceof AxeItem || weaponItem instanceof MaceItem;
+            return weaponItem.getComponents().contains(DataComponentTypes.DAMAGE);
         } else {
             return false;
         }
