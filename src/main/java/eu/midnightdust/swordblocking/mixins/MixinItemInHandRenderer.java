@@ -9,7 +9,6 @@ import eu.midnightdust.swordblocking.config.SwordBlockingConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
@@ -25,6 +24,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+//? >=1.21.10 {
+import net.minecraft.client.renderer.SubmitNodeCollector;
+//? } else {
+/*import net.minecraft.client.renderer.MultiBufferSource;
+*///? }
+
 @Mixin(ItemInHandRenderer.class)
 public abstract class MixinItemInHandRenderer {
     @Shadow
@@ -35,7 +40,19 @@ public abstract class MixinItemInHandRenderer {
     protected abstract void applyItemArmAttackTransform(PoseStack poseStack, HumanoidArm hand, float swingProgress);
 
     @WrapMethod(method = "renderItem")
-    public void swordBlocking$hideShield(LivingEntity entity, ItemStack stack, ItemDisplayContext displayContext, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, Operation<Void> original) {
+    public void swordBlocking$hideShield(
+            LivingEntity entity,
+            ItemStack stack,
+            ItemDisplayContext displayContext,
+            PoseStack poseStack,
+            //? >=1.21.10 {
+            SubmitNodeCollector bufferSource,
+            //? } else {
+            /*MultiBufferSource bufferSource,
+            *///? }
+            int packedLight,
+            Operation<Void> original
+    ) {
         if (!SwordBlockingClient.shouldHideShield(entity.getMainHandItem(), entity.getOffhandItem(), stack)) {
             original.call(entity, stack, displayContext, poseStack, bufferSource, packedLight);
         }
@@ -62,7 +79,24 @@ public abstract class MixinItemInHandRenderer {
     }
 
     @Inject(method = "renderArmWithItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/ItemInHandRenderer;applyItemArmTransform(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/world/entity/HumanoidArm;F)V", ordinal = 3, shift = At.Shift.AFTER))
-    private void swordBlocking$applySwingOffset(AbstractClientPlayer player, float partialTicks, float pitch, InteractionHand hand, float swingProgress, ItemStack stack, float equippedProgress, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, CallbackInfo ci, @Local HumanoidArm arm) {
+    private void swordBlocking$applySwingOffset(
+            AbstractClientPlayer player,
+            float partialTicks,
+            float pitch,
+            InteractionHand hand,
+            float swingProgress,
+            ItemStack stack,
+            float equippedProgress,
+            PoseStack poseStack,
+            //? >=1.21.10 {
+            SubmitNodeCollector bufferSource,
+            //? } else {
+            /*MultiBufferSource bufferSource,
+             *///? }
+            int combinedLight,
+            CallbackInfo ci,
+            @Local HumanoidArm arm
+    ) {
         if (SwordBlockingConfig.enabled && SwordBlockingConfig.blockHitAnimation) {
             this.applyItemArmAttackTransform(poseStack, arm, swingProgress);
         }

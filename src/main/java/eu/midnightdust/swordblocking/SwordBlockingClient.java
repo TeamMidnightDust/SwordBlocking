@@ -7,20 +7,20 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
 
 //? fabric {
-/*import dev.kikugie.fletching_table.annotation.fabric.Entrypoint;
+import dev.kikugie.fletching_table.annotation.fabric.Entrypoint;
 import net.fabricmc.api.ClientModInitializer;
-*///?} else {
-import net.neoforged.api.distmarker.Dist;
+//?} else {
+/*import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.common.Mod;
-//?}
+*///?}
 
 //? fabric
-/*@Entrypoint*/
+@Entrypoint
 //? neoforge
-@Mod(value = SwordBlockingClient.MOD_ID, dist = Dist.CLIENT)
+/*@Mod(value = SwordBlockingClient.MOD_ID, dist = Dist.CLIENT)*/
 public final class SwordBlockingClient
         //? fabric
-        /*implements ClientModInitializer*/
+        implements ClientModInitializer
 {
     public static final String MOD_ID = "@MODID@";
 
@@ -54,13 +54,13 @@ public final class SwordBlockingClient
     }
 
     //? neoforge {
-    public SwordBlockingClient() {
+    /*public SwordBlockingClient() {
         initialize();
     }
-    //?} else {
-    /*@Override
+    *///?} else {
+    @Override
     public void onInitializeClient() {
         initialize();
     }
-    *///?}
+    //?}
 }
