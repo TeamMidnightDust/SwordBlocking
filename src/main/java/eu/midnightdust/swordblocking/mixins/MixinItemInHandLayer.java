@@ -16,7 +16,14 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ItemInHandLayer.class)
 public abstract class MixinItemInHandLayer<S extends ArmedEntityRenderState, M extends EntityModel<S> & ArmedModel> {
-    @Redirect(method = "renderArmWithItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/item/ItemStackRenderState;isEmpty()Z"))
+    @Redirect(
+            //? >=1.21.10 {
+            method = "submitArmWithItem",
+            //? } else {
+            /*method = "renderArmWithItem",
+            *///? }
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/item/ItemStackRenderState;isEmpty()Z")
+    )
     private boolean swordBlocking$hideShield(ItemStackRenderState instance, @Local(argsOnly = true) S renderState, @Local(argsOnly = true) HumanoidArm arm) {
         if (SwordBlockingConfig.enabled) {
             final ArmedItemStackData armedItemStackData = (ArmedItemStackData) renderState;
