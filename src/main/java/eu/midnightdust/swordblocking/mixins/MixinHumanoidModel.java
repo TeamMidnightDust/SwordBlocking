@@ -26,8 +26,8 @@ public abstract class MixinHumanoidModel {
     @Inject(method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/HumanoidRenderState;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/HumanoidModel;setupAttackAnimation(Lnet/minecraft/client/renderer/entity/state/HumanoidRenderState;F)V", shift = At.Shift.BEFORE))
     private void swordBlocking$setBlockingAngles(HumanoidRenderState renderState, CallbackInfo ci) {
         final ArmedItemStackData armedItemStackData = (ArmedItemStackData) renderState;
-        final ItemStack offHandStack = armedItemStackData.swordblocking$getItemHeldByArm(HumanoidArm.LEFT);
-        final ItemStack mainHandStack = armedItemStackData.swordblocking$getItemHeldByArm(HumanoidArm.RIGHT);
+        final ItemStack offHandStack = armedItemStackData.swordblocking$getOffHandItem();
+        final ItemStack mainHandStack = armedItemStackData.swordblocking$getMainHandItem();
         if (renderState.isUsingItem && SwordBlockingClient.canEntityBlock(mainHandStack, offHandStack)) {
             if (offHandStack.getItem() instanceof ShieldItem) {
                 this.poseRightArm(renderState, HumanoidModel.ArmPose.BLOCK);

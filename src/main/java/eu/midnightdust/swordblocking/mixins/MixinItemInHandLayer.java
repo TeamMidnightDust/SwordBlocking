@@ -27,7 +27,7 @@ public abstract class MixinItemInHandLayer<S extends ArmedEntityRenderState, M e
     private boolean swordBlocking$hideShield(ItemStackRenderState instance, @Local(argsOnly = true) S renderState, @Local(argsOnly = true) HumanoidArm arm) {
         if (SwordBlockingConfig.enabled) {
             final ArmedItemStackData armedItemStackData = (ArmedItemStackData) renderState;
-            return SwordBlockingClient.shouldHideShield(armedItemStackData.swordblocking$getItemHeldByArm(HumanoidArm.RIGHT), armedItemStackData.swordblocking$getItemHeldByArm(HumanoidArm.LEFT), armedItemStackData.swordblocking$getItemHeldByArm(arm));
+            return SwordBlockingClient.shouldHideShield(armedItemStackData.swordblocking$getMainHandItem(), armedItemStackData.swordblocking$getOffHandItem(), armedItemStackData.swordblocking$getItemHeldByArm(arm));
         }
 
         return instance.isEmpty();

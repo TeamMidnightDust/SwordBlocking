@@ -15,37 +15,46 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ArmedEntityRenderState.class)
 public abstract class MixinArmedEntityRenderState implements ArmedItemStackData {
     @Unique
-    private ItemStack swordblocking$leftStack = ItemStack.EMPTY;
+    private ItemStack swordblocking$offHandStack = ItemStack.EMPTY;
 
     @Unique
-    private ItemStack swordblocking$rightStack = ItemStack.EMPTY;
+    private ItemStack swordblocking$mainHandStack = ItemStack.EMPTY;
 
     @Inject(method = "extractArmedEntityRenderState", at = @At("TAIL"))
     private static void swordBlocking$storeRequiredData(LivingEntity livingEntity, ArmedEntityRenderState armedEntityRenderState, ItemModelResolver itemModelResolver, CallbackInfo ci) {
         ArmedItemStackData armedItemStackData = (ArmedItemStackData) armedEntityRenderState;
-        armedItemStackData.swordblocking$setItemHeldByArm(HumanoidArm.LEFT, livingEntity.getItemHeldByArm(HumanoidArm.LEFT));
-        armedItemStackData.swordblocking$setItemHeldByArm(HumanoidArm.RIGHT, livingEntity.getItemHeldByArm(HumanoidArm.RIGHT));
+        armedItemStackData.swordblocking$setOffHandItem(livingEntity.getOffhandItem());
+        armedItemStackData.swordblocking$setMainHandItem(livingEntity.getMainHandItem());
     }
 
     @Override
     public ItemStack swordblocking$getItemHeldByArm(HumanoidArm arm) {
         if (arm == HumanoidArm.LEFT) {
-            return swordblocking$leftStack;
+            return swordblocking$offHandStack;
         } else if (arm == HumanoidArm.RIGHT) {
-            return swordblocking$rightStack;
+            return swordblocking$mainHandStack;
         } else {
             throw new UnsupportedOperationException();
         }
     }
 
     @Override
-    public void swordblocking$setItemHeldByArm(HumanoidArm arm, ItemStack itemStack) {
-        if (arm == HumanoidArm.LEFT) {
-            swordblocking$leftStack = itemStack;
-        } else if (arm == HumanoidArm.RIGHT) {
-            swordblocking$rightStack = itemStack;
-        } else {
-            throw new UnsupportedOperationException();
-        }
+    public ItemStack swordblocking$getOffHandItem() {
+        return this.swordblocking$offHandStack;
+    }
+
+    @Override
+    public void swordblocking$setOffHandItem(ItemStack stack) {
+        this.swordblocking$offHandStack = stack;
+    }
+
+    @Override
+    public ItemStack swordblocking$getMainHandItem() {
+        return this.swordblocking$mainHandStack;
+    }
+
+    @Override
+    public void swordblocking$setMainHandItem(ItemStack stack) {
+        this.swordblocking$mainHandStack = stack;
     }
 }
