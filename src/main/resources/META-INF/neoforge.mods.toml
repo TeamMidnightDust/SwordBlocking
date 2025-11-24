@@ -28,3 +28,10 @@ mandatory = true
 versionRange = "${minecraft_version_range}"
 ordering = "NONE"
 side = "CLIENT"
+
+[[dependencies.${id}]]
+modId = "midnightlib"
+mandatory = true
+versionRange = ""
+ordering = "AFTER"
+side = "CLIENT"
