@@ -31,7 +31,11 @@ public final class SwordBlockingClient
 
     // TODO/NOTE: I know this can be condensed more but i'm tired so will recheck later
     public static boolean canShieldSwordBlock(ItemStack mainHandStack, ItemStack offHandStack) {
-        if (SwordBlockingConfig.enabled && (offHandStack.getItem() instanceof ShieldItem || mainHandStack.getItem() instanceof ShieldItem)) {
+        if (!SwordBlockingConfig.enabled) return false;
+        boolean hasShield = offHandStack.getItem() instanceof ShieldItem || mainHandStack.getItem() instanceof ShieldItem;
+        if (!SwordBlockingConfig.requireShield) {
+            return mainHandStack.getItem().components().has(DataComponents.DAMAGE) || offHandStack.getItem().components().has(DataComponents.DAMAGE);
+        } else if (hasShield) {
             final Item weaponItem = offHandStack.getItem() instanceof ShieldItem ? mainHandStack.getItem() : offHandStack.getItem();
             return weaponItem.components().has(DataComponents.DAMAGE);
         } else {

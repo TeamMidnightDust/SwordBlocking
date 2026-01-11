@@ -5,6 +5,7 @@ import eu.midnightdust.swordblocking.config.SwordBlockingConfig;
 import eu.midnightdust.swordblocking.ducks.ArmedItemStackData;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
@@ -29,7 +30,14 @@ public abstract class MixinHumanoidModel {
         final ItemStack offHandStack = armedItemStackData.swordblocking$getOffHandItem();
         final ItemStack mainHandStack = armedItemStackData.swordblocking$getMainHandItem();
         if (renderState.isUsingItem && SwordBlockingClient.canEntityBlock(mainHandStack, offHandStack)) {
-            if (offHandStack.getItem() instanceof ShieldItem) {
+            if (SwordBlockingConfig.requireShield) {
+                if (mainHandStack.getItem().components().has(DataComponents.DAMAGE)) {
+                    this.poseRightArm(renderState, HumanoidModel.ArmPose.BLOCK);
+                }
+                if (offHandStack.getItem().components().has(DataComponents.DAMAGE)) {
+                    this.poseRightArm(renderState, HumanoidModel.ArmPose.BLOCK);
+                }
+            } else if (offHandStack.getItem() instanceof ShieldItem) {
                 this.poseRightArm(renderState, HumanoidModel.ArmPose.BLOCK);
             } else {
                 this.poseLeftArm(renderState, HumanoidModel.ArmPose.BLOCK);
