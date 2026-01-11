@@ -23,4 +23,7 @@ public class SwordBlockingConfig extends MidnightConfig {
 
     @Entry
     public static boolean blockHitAnimation = false;
+
+    @Entry
+    public static boolean requireShield = true;
 }

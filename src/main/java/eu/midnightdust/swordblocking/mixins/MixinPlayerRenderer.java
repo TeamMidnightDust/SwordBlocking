@@ -3,6 +3,7 @@ package eu.midnightdust.swordblocking.mixins;
 import eu.midnightdust.swordblocking.SwordBlockingClient;
 import eu.midnightdust.swordblocking.config.SwordBlockingConfig;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
@@ -60,7 +61,9 @@ public abstract class MixinPlayerRenderer {
                 return;
             }
 
-            if (offStack.getItem() instanceof ShieldItem && SwordBlockingClient.canEntityBlock(player.getMainHandItem(), player.getOffhandItem())) {
+            if (!SwordBlockingConfig.requireShield && handStack.getItem().components().has(DataComponents.DAMAGE)) {
+                cir.setReturnValue(HumanoidModel.ArmPose.BLOCK);
+            } else if (offStack.getItem() instanceof ShieldItem && SwordBlockingClient.canEntityBlock(player.getMainHandItem(), player.getOffhandItem())) {
                 cir.setReturnValue(HumanoidModel.ArmPose.BLOCK);
             } else if (handStack.getItem() instanceof ShieldItem && SwordBlockingConfig.hideShield && (cir.getReturnValue() == HumanoidModel.ArmPose.ITEM || cir.getReturnValue() == HumanoidModel.ArmPose.BLOCK)) {
                 cir.setReturnValue(HumanoidModel.ArmPose.EMPTY);

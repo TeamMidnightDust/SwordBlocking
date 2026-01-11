@@ -7,5 +7,7 @@
   "swordblocking.midnightconfig.hideOffhandSlot.tooltip": "Hides the offhand slot when a shield is in the offhand.",
   "swordblocking.midnightconfig.disableUseEquipAnimation": "Remove the equip animation when blocking.",
   "swordblocking.midnightconfig.lockBlockingArmPosition": "Disable arm moving when blocking.",
-  "swordblocking.midnightconfig.blockHitAnimation": "Enable block hitting animation."
+  "swordblocking.midnightconfig.blockHitAnimation": "Enable block hitting animation.",
+  "swordblocking.midnightconfig.requireShield": "Require Shield",
+  "swordblocking.midnightconfig.requireShield.tooltip": "Require a shield in the offhand or mainhand slot to block."
 }
